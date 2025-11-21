@@ -44,7 +44,7 @@
             margin-bottom: 10px;
             color: #2c3e50;
         }
-        .synergies {
+        .upgrades {
             font-size: 12px;
             color: #7f8c8d;
         }
@@ -71,42 +71,42 @@
             {
                 id: 1,
                 name: "Blast Hammer",
-                synergies: ["Explosive", "Heavy"]
+                upgrades: ["Explosive", "Heavy"]
             },
             {
                 id: 2,
                 name: "Sonic Blade",
-                synergies: ["Sound", "Sharp"]
+                upgrades: ["Sound", "Sharp"]
             },
             {
                 id: 3,
                 name: "Flame Sword",
-                synergies: ["Fire", "Sharp"]
+                upgrades: ["Fire", "Sharp"]
             },
             {
                 id: 4,
                 name: "Ice Staff",
-                synergies: ["Cold", "Magic"]
+                upgrades: ["Cold", "Magic"]
             },
             {
                 id: 5,
                 name: "Lightning Whip",
-                synergies: ["Electric", "Flexible"]
+                upgrades: ["Electric", "Flexible"]
             },
             {
                 id: 6,
                 name: "Poison Daggers",
-                synergies: ["Poison", "Sharp"]
+                upgrades: ["Poison", "Sharp"]
             },
             {
                 id: 7,
                 name: "Earth Crusher",
-                synergies: ["Earth", "Heavy"]
+                upgrades: ["Earth", "Heavy"]
             },
             {
                 id: 8,
                 name: "Wind Spear",
-                synergies: ["Air", "Sharp"]
+                upgrades: ["Air", "Sharp"]
             }
         ];
 
@@ -123,7 +123,7 @@
                 weaponElement.id = `weapon-${weapon.id}`;
                 weaponElement.innerHTML = `
                     <div class="weapon-name">${weapon.name}</div>
-                    <div class="synergies">Synergies: ${weapon.synergies.join(', ')}</div>
+                    <div class="upgrades">Upgrades: ${weapon.upgrades.join(', ')}</div>
                 `;
                 
                 weaponElement.addEventListener('click', () => filterWeapons(weapon));
@@ -132,9 +132,9 @@
             });
         }
 
-        // Function to filter weapons based on synergy
+        // Function to filter weapons based on upgrade
         function filterWeapons(selectedWeapon) {
-            const selectedSynergies = selectedWeapon.synergies;
+            const selectedUpgrades = selectedWeapon.upgrades;
             
             // Get all weapon elements
             const weaponElements = document.querySelectorAll('.weapon');
@@ -144,7 +144,7 @@
                 element.classList.remove('hidden');
             });
             
-            // Hide weapons that don't share any synergies
+            // Hide weapons that don't share any upgrades
             weaponElements.forEach(element => {
                 const weaponId = parseInt(element.id.split('-')[1]);
                 const weapon = weapons.find(w => w.id === weaponId);
@@ -152,12 +152,12 @@
                 // Skip the selected weapon
                 if (weapon.id === selectedWeapon.id) return;
                 
-                // Check if weapon shares any synergy with selected weapon
-                const hasCommonSynergy = weapon.synergies.some(synergy => 
-                    selectedSynergies.includes(synergy)
+                // Check if weapon shares any upgrade with selected weapon
+                const hasCommonUpgrade = weapon.upgrades.some(upgrade => 
+                    selectedUpgrades.includes(upgrade)
                 );
                 
-                if (!hasCommonSynergy) {
+                if (!hasCommonUpgrade) {
                     element.classList.add('hidden');
                 }
             });
