@@ -193,12 +193,12 @@
                     return;
                 }
                 
-                // Check if weapon has all checked upgrades
-                const hasAllCheckedUpgrades = checkedUpgrades.every(upgrade => 
-                    weapon.upgrades.includes(upgrade)
+                // Check if weapon has any of the checked upgrades
+                const hasAnyCheckedUpgrade = weapon.upgrades.some(upgrade => 
+                    checkedUpgrades.includes(upgrade)
                 );
                 
-                if (hasAllCheckedUpgrades) {
+                if (hasAnyCheckedUpgrade) {
                     element.classList.remove('hidden');
                 } else {
                     element.classList.add('hidden');
