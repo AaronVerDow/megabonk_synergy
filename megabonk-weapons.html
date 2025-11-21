@@ -161,7 +161,7 @@
         const weaponList = document.getElementById('weaponList');
         const upgradeCheckboxes = document.getElementById('upgradeCheckboxes');
         const selectionSummary = document.getElementById('selectionSummary');
-        const upgradeCounts = document.getElementById('upgradeCounts');
+        const upgradeCountsContainer = document.getElementById('upgradeCounts');
 
         // Track selected weapons (max 4)
         let selectedWeapons = [];
@@ -257,7 +257,7 @@
 
         // Update upgrade counts display
         function updateUpgradeCounts() {
-            upgradeCounts.innerHTML = '';
+            upgradeCountsContainer.innerHTML = '';
             
             // Get all upgrades from selected weapons
             let allSelectedUpgrades = [];
@@ -269,17 +269,17 @@
             });
             
             // Count occurrences of each upgrade
-            const upgradeCounts = {};
+            const upgradeCountMap = {};
             allSelectedUpgrades.forEach(upgrade => {
-                upgradeCounts[upgrade] = (upgradeCounts[upgrade] || 0) + 1;
+                upgradeCountMap[upgrade] = (upgradeCountMap[upgrade] || 0) + 1;
             });
             
             // Display counts
-            Object.entries(upgradeCounts).forEach(([upgrade, count]) => {
+            Object.entries(upgradeCountMap).forEach(([upgrade, count]) => {
                 const countElement = document.createElement('div');
                 countElement.className = 'upgrade-count';
                 countElement.textContent = `${upgrade}: ${count}`;
-                upgradeCounts.appendChild(countElement);
+                upgradeCountsContainer.appendChild(countElement);
             });
         }
 
