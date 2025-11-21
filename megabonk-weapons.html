@@ -39,6 +39,10 @@
         .weapon.hidden {
             display: none;
         }
+        .weapon.selected {
+            border: 3px solid #3498db;
+            background-color: #e1f0fa;
+        }
         .weapon-name {
             font-weight: bold;
             margin-bottom: 10px;
@@ -69,6 +73,28 @@
         .upgrade-checkbox input {
             margin: 0;
         }
+        .selection-summary {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .selection-summary h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .upgrade-counts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .upgrade-count {
+            background-color: #ecf0f1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -82,7 +108,14 @@
         <!-- Weapons will be populated by JavaScript -->
     </div>
     
-    <p class="instructions">Click on any weapon to see only weapons with matching upgrade synergies</p>
+    <p class="instructions">Click on any weapon to select it (max 4). Selected weapons will be highlighted.</p>
+    
+    <div class="selection-summary" id="selectionSummary">
+        <h2>Selected Upgrades</h2>
+        <div class="upgrade-counts" id="upgradeCounts">
+            <!-- Upgrade counts will be populated by JavaScript -->
+        </div>
+    </div>
 
     <script>
         // Weapon data with upgrade synergies
@@ -127,6 +160,11 @@
         // DOM elements
         const weaponList = document.getElementById('weaponList');
         const upgradeCheckboxes = document.getElementById('upgradeCheckboxes');
+        const selectionSummary = document.getElementById('selectionSummary');
+        const upgradeCounts = document.getElementById('upgradeCounts');
+
+        // Track selected weapons (max 4)
+        let selectedWeapons = [];
 
         // Get all unique upgrades
         const allUpgrades = [...new Set(weapons.flatMap(weapon => weapon.upgrades))].sort();
@@ -170,7 +208,78 @@
                     <div class="upgrades">Upgrades: ${weapon.upgrades.join(', ')}</div>
                 `;
                 
+                // Add click event to select/deselect weapon
+                weaponElement.addEventListener('click', () => {
+                    toggleWeaponSelection(weapon.id);
+                });
+                
                 weaponList.appendChild(weaponElement);
+            });
+        }
+
+        // Toggle weapon selection
+        function toggleWeaponSelection(weaponId) {
+            const index = selectedWeapons.indexOf(weaponId);
+            
+            if (index > -1) {
+                // Deselect weapon
+                selectedWeapons.splice(index, 1);
+            } else {
+                // Select weapon if we haven't reached the limit
+                if (selectedWeapons.length < 4) {
+                    selectedWeapons.push(weaponId);
+                } else {
+                    // If at limit, deselect the first one and add the new one
+                    selectedWeapons.shift();
+                    selectedWeapons.push(weaponId);
+                }
+            }
+            
+            updateWeaponSelections();
+            updateUpgradeCounts();
+        }
+
+        // Update weapon selection visuals
+        function updateWeaponSelections() {
+            const weaponElements = document.querySelectorAll('.weapon');
+            
+            weaponElements.forEach(element => {
+                const weaponId = parseInt(element.id.split('-')[1]);
+                const isSelected = selectedWeapons.includes(weaponId);
+                
+                if (isSelected) {
+                    element.classList.add('selected');
+                } else {
+                    element.classList.remove('selected');
+                }
+            });
+        }
+
+        // Update upgrade counts display
+        function updateUpgradeCounts() {
+            upgradeCounts.innerHTML = '';
+            
+            // Get all upgrades from selected weapons
+            let allSelectedUpgrades = [];
+            selectedWeapons.forEach(weaponId => {
+                const weapon = weapons.find(w => w.id === weaponId);
+                if (weapon) {
+                    allSelectedUpgrades = allSelectedUpgrades.concat(weapon.upgrades);
+                }
+            });
+            
+            // Count occurrences of each upgrade
+            const upgradeCounts = {};
+            allSelectedUpgrades.forEach(upgrade => {
+                upgradeCounts[upgrade] = (upgradeCounts[upgrade] || 0) + 1;
+            });
+            
+            // Display counts
+            Object.entries(upgradeCounts).forEach(([upgrade, count]) => {
+                const countElement = document.createElement('div');
+                countElement.className = 'upgrade-count';
+                countElement.textContent = `${upgrade}: ${count}`;
+                upgradeCounts.appendChild(countElement);
             });
         }
 
@@ -207,6 +316,7 @@
         // Initialize the application
         renderUpgradeCheckboxes();
         renderWeapons();
+        updateUpgradeCounts();
     </script>
 </body>
 </html>
