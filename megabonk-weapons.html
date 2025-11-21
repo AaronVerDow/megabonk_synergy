@@ -48,6 +48,12 @@
             margin-bottom: 10px;
             color: #2c3e50;
         }
+        .weapon-image {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
         .upgrades {
             font-size: 12px;
             color: #7f8c8d;
@@ -118,152 +124,181 @@
     </div>
 
     <script>
-        // Weapon data with upgrade synergies
+        // Weapon data with upgrade synergies and image paths
         const weapons = [
             {
                 id: 1,
                 name: "Sword",
-                upgrades: ["Damage", "Projectile Count", "Knockback", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Knockback", "Size"],
+                image: "pics/Sword_Icon.jpg"
             },
             {
                 id: 2,
                 name: "Flamewalker",
-                upgrades: ["Damage", "Projectile Count", "Duration", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Duration", "Size"],
+                image: "pics/Firewalk.jpg"
             },
             {
                 id: 3,
                 name: "Lightning Staff",
-                upgrades: ["Damage", "Projectile Count", "Projectile Bounces", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Projectile Bounces", "Size"],
+                image: "pics/Lightning_Staff_Icon.jpg"
             },
             {
                 id: 4,
                 name: "Firestaff",
-                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Size"],
+                image: "pics/Fire_Staff.jpg"
             },
             {
                 id: 5,
                 name: "Chunkers",
-                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Knockback", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Knockback", "Size"],
+                image: "pics/Chunker_Icon.jpg"
             },
             {
                 id: 6,
                 name: "Bone",
-                upgrades: ["Damage", "Projectile Count", "Projectile Bounces", "Projectile Speed", "Knockback"]
+                upgrades: ["Damage", "Projectile Count", "Projectile Bounces", "Projectile Speed", "Knockback"],
+                image: "pics/Bone_Icon.jpg"
             },
             {
                 id: 7,
                 name: "Bow",
-                upgrades: ["Damage", "Crit Chance", "Crit Damage", "Projectile Count", "Projectile Speed", "Size"]
+                upgrades: ["Damage", "Crit Chance", "Crit Damage", "Projectile Count", "Projectile Speed", "Size"],
+                image: "pics/Bow_Icon.jpg"
             },
             {
                 id: 8,
                 name: "Revolver",
-                upgrades: ["Damage", "Crit Chance", "Crit Damage", "Projectile Bounces", "Projectile Count", "Projectile Speed"]
+                upgrades: ["Damage", "Crit Chance", "Crit Damage", "Projectile Bounces", "Projectile Count", "Projectile Speed"],
+                image: "pics/Revolver_Icon.jpg"
             },
             {
                 id: 9,
                 name: "Aegis",
-                upgrades: ["Damage", "Projectile Count", "Size", "Knockback"]
+                upgrades: ["Damage", "Projectile Count", "Size", "Knockback"],
+                image: "pics/Aegis_Icon.jpg"
             },
             {
                 id: 10,
                 name: "Bananarang",
-                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Size"],
+                image: "pics/Banana_Icon.jpg"
             },
             {
                 id: 11,
                 name: "Aura",
-                upgrades: ["Damage", "Size"]
+                upgrades: ["Damage", "Size"],
+                image: "pics/Aura_Icon.jpg"
             },
             {
                 id: 12,
                 name: "Axe",
-                upgrades: ["Damage", "Projectile Count", "Duration", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Duration", "Size"],
+                image: "pics/Axe_Icon.jpg"
             },
             {
                 id: 13,
                 name: "Space Noodle",
-                upgrades: ["Damage", "Size", "Duration"]
+                upgrades: ["Damage", "Size", "Duration"],
+                image: "pics/Space_Noodle.jpg"
             },
             {
                 id: 14,
                 name: "Sniper Rifle",
-                upgrades: ["Damage", "Projectile Count", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Size"],
+                image: "pics/Sniper_Rifle.jpg"
             },
             {
                 id: 15,
                 name: "Slutty Rocket",
-                upgrades: ["Damage", "Crit Chance", "Projectile Count", "Projectile Speed"]
+                upgrades: ["Damage", "Crit Chance", "Projectile Count", "Projectile Speed"],
+                image: "pics/SluttyRocket.jpg"
             },
             {
                 id: 16,
                 name: "Shotgun",
-                upgrades: ["Damage", "Crit Chance", "Knockback", "Projectile Count", "Size"]
+                upgrades: ["Damage", "Crit Chance", "Knockback", "Projectile Count", "Size"],
+                image: "pics/Shotgun.jpg"
             },
             {
                 id: 17,
                 name: "Mines",
-                upgrades: ["Damage", "Duration", "Size", "Projectile Count"]
+                upgrades: ["Damage", "Duration", "Size", "Projectile Count"],
+                image: "pics/Mines.jpg"
             },
             {
                 id: 18,
                 name: "Wireless Dagger",
-                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Projectile Bounces"]
+                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Projectile Bounces"],
+                image: "pics/Wireless_Dagger.jpg"
             },
             {
                 id: 19,
                 name: "Frostwalker",
-                upgrades: ["Damage", "Size", "Duration"]
+                upgrades: ["Damage", "Size", "Duration"],
+                image: "pics/Frost_walker.jpg"
             },
             {
                 id: 20,
                 name: "Tornado",
-                upgrades: ["Damage", "Knockback", "Size", "Projectile Speed", "Projectile Count"]
+                upgrades: ["Damage", "Knockback", "Size", "Projectile Speed", "Projectile Count"],
+                image: "pics/Tornado.jpg"
             },
             {
                 id: 21,
                 name: "Dexecutioner",
-                upgrades: ["Damage", "Crit Chance", "Projectile Count", "Size"]
+                upgrades: ["Damage", "Crit Chance", "Projectile Count", "Size"],
+                image: "pics/Dexecutioner.jpg"
             },
             {
                 id: 22,
                 name: "Blood Magic",
-                upgrades: ["Damage", "Projectile Count", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Size"],
+                image: "pics/Blood_Magic.jpg"
             },
             {
                 id: 23,
                 name: "Black Hole",
-                upgrades: ["Damage", "Duration", "Size", "Projectile Count"]
+                upgrades: ["Damage", "Duration", "Size", "Projectile Count"],
+                image: "pics/BlackHole.jpg"
             },
             {
                 id: 24,
                 name: "Poison Flask",
-                upgrades: ["Damage", "Duration", "Projectile Count", "Projectile Speed", "Size"]
+                upgrades: ["Damage", "Duration", "Projectile Count", "Projectile Speed", "Size"],
+                image: "pics/Poison_Flask_Icon.jpg"
             },
             {
                 id: 25,
                 name: "Katana",
-                upgrades: ["Damage", "Size", "Duration", "Projectile Count", "Crit Chance", "Crit Damage"]
+                upgrades: ["Damage", "Size", "Duration", "Projectile Count", "Crit Chance", "Crit Damage"],
+                image: "pics/Katana.jpg"
             },
             {
                 id: 26,
                 name: "Dragon's Breath",
-                upgrades: ["Damage", "Duration", "Size"]
+                upgrades: ["Damage", "Duration", "Size"],
+                image: "pics/Dragon's_Breath.jpg"
             },
             {
                 id: 27,
                 name: "Dice",
-                upgrades: ["Damage", "Crit Chance", "Crit Damage", "Projectile Speed", "Projectile Count", "Size"]
+                upgrades: ["Damage", "Crit Chance", "Crit Damage", "Projectile Speed", "Projectile Count", "Size"],
+                image: "pics/Dice.jpg"
             },
             {
                 id: 28,
                 name: "Hero Sword",
-                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Size"]
+                upgrades: ["Damage", "Projectile Count", "Projectile Speed", "Size"],
+                image: "pics/Hero_Sword_Icon.jpg"
             },
             {
                 id: 29,
                 name: "Corrupted Sword",
-                upgrades: []
+                upgrades: [],
+                image: "pics/Corrupted_Sword.jpg"
             }
         ];
 
@@ -314,6 +349,7 @@
                 weaponElement.className = 'weapon';
                 weaponElement.id = `weapon-${weapon.id}`;
                 weaponElement.innerHTML = `
+                    <img src="${weapon.image}" alt="${weapon.name}" class="weapon-image">
                     <div class="weapon-name">${weapon.name}</div>
                     <div class="upgrades">Upgrades: ${weapon.upgrades.join(', ')}</div>
                 `;
