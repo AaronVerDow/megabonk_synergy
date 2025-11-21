@@ -461,7 +461,7 @@
                 const count = upgradeCountMap[upgrade];
                 const countElement = document.createElement('div');
                 countElement.className = 'upgrade-count';
-                countElement.textContent = `${upgrade}: ${count}`;
+                countElement.innerHTML = `<strong>${upgrade}: ${count}</strong>`;
                 upgradeCountsContainer.appendChild(countElement);
             });
         }
