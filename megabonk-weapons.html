@@ -11,6 +11,8 @@
             margin: 0 auto;
             padding: 20px;
             background-color: #f5f5f5;
+            position: relative;
+            min-height: 100vh;
         }
         h1 {
             text-align: center;
@@ -85,6 +87,13 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
         }
         .selection-summary h2 {
             margin-top: 0;
@@ -116,7 +125,6 @@
         <!-- Weapons will be populated by JavaScript -->
     </div>
     
-    <h2>Upgrade Synergies</h2>
     <div class="selection-summary" id="selectionSummary">
         <div class="upgrade-counts" id="upgradeCounts">
             <!-- Upgrade counts will be populated by JavaScript -->
