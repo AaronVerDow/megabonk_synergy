@@ -54,10 +54,29 @@
             color: #7f8c8d;
             font-style: italic;
         }
+        .upgrade-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .upgrade-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .upgrade-checkbox input {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
     <h1>Megabonk Weapons</h1>
+    
+    <div class="upgrade-checkboxes" id="upgradeCheckboxes">
+        <!-- Checkboxes will be populated by JavaScript -->
+    </div>
     
     <div class="weapon-list" id="weaponList">
         <!-- Weapons will be populated by JavaScript -->
@@ -107,6 +126,36 @@
 
         // DOM elements
         const weaponList = document.getElementById('weaponList');
+        const upgradeCheckboxes = document.getElementById('upgradeCheckboxes');
+
+        // Get all unique upgrades
+        const allUpgrades = [...new Set(weapons.flatMap(weapon => weapon.upgrades))].sort();
+
+        // Function to render upgrade checkboxes
+        function renderUpgradeCheckboxes() {
+            upgradeCheckboxes.innerHTML = '';
+            
+            allUpgrades.forEach(upgrade => {
+                const checkboxContainer = document.createElement('div');
+                checkboxContainer.className = 'upgrade-checkbox';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `upgrade-${upgrade}`;
+                checkbox.value = upgrade;
+                
+                const label = document.createElement('label');
+                label.htmlFor = `upgrade-${upgrade}`;
+                label.textContent = upgrade;
+                
+                checkboxContainer.appendChild(checkbox);
+                checkboxContainer.appendChild(label);
+                
+                checkbox.addEventListener('change', filterWeaponsByUpgrades);
+                
+                upgradeCheckboxes.appendChild(checkboxContainer);
+            });
+        }
 
         // Function to render weapons
         function renderWeapons() {
@@ -127,7 +176,37 @@
             });
         }
 
-        // Function to filter weapons based on upgrade
+        // Function to filter weapons based on checked upgrades
+        function filterWeaponsByUpgrades() {
+            const checkedUpgrades = Array.from(document.querySelectorAll('.upgrade-checkbox input:checked'))
+                .map(checkbox => checkbox.value);
+            
+            const weaponElements = document.querySelectorAll('.weapon');
+            
+            weaponElements.forEach(element => {
+                const weaponId = parseInt(element.id.split('-')[1]);
+                const weapon = weapons.find(w => w.id === weaponId);
+                
+                // If no checkboxes are checked, show all weapons
+                if (checkedUpgrades.length === 0) {
+                    element.classList.remove('hidden');
+                    return;
+                }
+                
+                // Check if weapon has all checked upgrades
+                const hasAllCheckedUpgrades = checkedUpgrades.every(upgrade => 
+                    weapon.upgrades.includes(upgrade)
+                );
+                
+                if (hasAllCheckedUpgrades) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            });
+        }
+
+        // Function to filter weapons based on click
         function filterWeapons(selectedWeapon) {
             const selectedUpgrades = selectedWeapon.upgrades;
             
@@ -159,6 +238,7 @@
         }
 
         // Initialize the application
+        renderUpgradeCheckboxes();
         renderWeapons();
     </script>
 </body>
