@@ -170,8 +170,6 @@
                     <div class="upgrades">Upgrades: ${weapon.upgrades.join(', ')}</div>
                 `;
                 
-                weaponElement.addEventListener('click', () => filterWeapons(weapon));
-                
                 weaponList.appendChild(weaponElement);
             });
         }
@@ -201,37 +199,6 @@
                 if (hasAnyCheckedUpgrade) {
                     element.classList.remove('hidden');
                 } else {
-                    element.classList.add('hidden');
-                }
-            });
-        }
-
-        // Function to filter weapons based on click
-        function filterWeapons(selectedWeapon) {
-            const selectedUpgrades = selectedWeapon.upgrades;
-            
-            // Get all weapon elements
-            const weaponElements = document.querySelectorAll('.weapon');
-            
-            // Show all weapons first
-            weaponElements.forEach(element => {
-                element.classList.remove('hidden');
-            });
-            
-            // Hide weapons that don't share any upgrades
-            weaponElements.forEach(element => {
-                const weaponId = parseInt(element.id.split('-')[1]);
-                const weapon = weapons.find(w => w.id === weaponId);
-                
-                // Skip the selected weapon
-                if (weapon.id === selectedWeapon.id) return;
-                
-                // Check if weapon shares any upgrade with selected weapon
-                const hasCommonUpgrade = weapon.upgrades.some(upgrade => 
-                    selectedUpgrades.includes(upgrade)
-                );
-                
-                if (!hasCommonUpgrade) {
                     element.classList.add('hidden');
                 }
             });
