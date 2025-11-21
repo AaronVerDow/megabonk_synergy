@@ -274,8 +274,14 @@
                 upgradeCountMap[upgrade] = (upgradeCountMap[upgrade] || 0) + 1;
             });
             
-            // Display counts
-            Object.entries(upgradeCountMap).forEach(([upgrade, count]) => {
+            // Sort upgrades by count in descending order
+            const sortedUpgrades = Object.entries(upgradeCountMap)
+                .sort((a, b) => b[1] - a[1])
+                .map(entry => entry[0]);
+            
+            // Display counts in sorted order
+            sortedUpgrades.forEach(upgrade => {
+                const count = upgradeCountMap[upgrade];
                 const countElement = document.createElement('div');
                 countElement.className = 'upgrade-count';
                 countElement.textContent = `${upgrade}: ${count}`;
