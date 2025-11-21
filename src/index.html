@@ -10,13 +10,14 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #1a1a1a;
             position: relative;
             min-height: 100vh;
+            color: #e0e0e0;
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #ffffff;
         }
         .weapon-list {
             display: flex;
@@ -25,10 +26,10 @@
             justify-content: center;
         }
         .weapon {
-            background-color: white;
+            background-color: #2d2d2d;
             border-radius: 8px;
             padding: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             width: 180px;
@@ -36,19 +37,19 @@
         }
         .weapon:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
         .weapon.hidden {
             display: none;
         }
         .weapon.selected {
             border: 3px solid #3498db;
-            background-color: #e1f0fa;
+            background-color: #3a3a3a;
         }
         .weapon-name {
             font-weight: bold;
             margin-bottom: 10px;
-            color: #2c3e50;
+            color: #ffffff;
         }
         .weapon-image {
             width: 100%;
@@ -58,12 +59,12 @@
         }
         .upgrades {
             font-size: 12px;
-            color: #7f8c8d;
+            color: #b0b0b0;
         }
         .instructions {
             text-align: center;
             margin-top: 20px;
-            color: #7f8c8d;
+            color: #999999;
             font-style: italic;
         }
         .upgrade-checkboxes {
@@ -84,9 +85,9 @@
         .selection-summary {
             margin-top: 30px;
             padding: 15px;
-            background-color: white;
+            background-color: #2d2d2d;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             position: fixed;
             bottom: 0;
             left: 50%;
@@ -94,10 +95,11 @@
             width: 90%;
             max-width: 800px;
             z-index: 1000;
+            border: 1px solid #444;
         }
         .selection-summary h2 {
             margin-top: 0;
-            color: #2c3e50;
+            color: #ffffff;
         }
         .upgrade-counts {
             display: flex;
@@ -105,10 +107,17 @@
             gap: 10px;
         }
         .upgrade-count {
-            background-color: #ecf0f1;
+            background-color: #3a3a3a;
             padding: 8px 12px;
             border-radius: 4px;
             font-size: 14px;
+            color: #e0e0e0;
+        }
+        /* Dark mode checkbox styling */
+        .upgrade-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3498db;
         }
     </style>
 </head>
