@@ -235,8 +235,7 @@
     
     <h2>Filter by Upgrades</h2>
     <div class="filter-mode-toggle">
-        <button id="andMode" class="active">AND Mode</button>
-        <button id="orMode">OR Mode</button>
+        <button id="filterModeToggle">AND Mode</button>
     </div>
     <div class="upgrade-checkboxes" id="upgradeCheckboxes">
         <!-- Checkboxes will be populated by JavaScript -->
@@ -615,9 +614,9 @@
         function toggleFilterMode() {
             filterModeAnd = !filterModeAnd;
             
-            // Update button states
-            document.getElementById('andMode').classList.toggle('active', filterModeAnd);
-            document.getElementById('orMode').classList.toggle('active', !filterModeAnd);
+            // Update button text
+            const toggleButton = document.getElementById('filterModeToggle');
+            toggleButton.textContent = filterModeAnd ? 'AND Mode' : 'OR Mode';
             
             // Re-filter weapons
             filterWeaponsByUpgrades();
@@ -628,9 +627,8 @@
         renderWeapons();
         updateUpgradeCounts();
 
-        // Add event listeners for filter mode toggle buttons
-        document.getElementById('andMode').addEventListener('click', toggleFilterMode);
-        document.getElementById('orMode').addEventListener('click', toggleFilterMode);
+        // Add event listener for filter mode toggle button
+        document.getElementById('filterModeToggle').addEventListener('click', toggleFilterMode);
     </script>
 </body>
 </html>
