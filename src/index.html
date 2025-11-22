@@ -133,6 +133,32 @@
             text-decoration: underline;
         }
         
+        /* Filter mode toggle */
+        .filter-mode-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            gap: 10px;
+        }
+        
+        .filter-mode-toggle button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .filter-mode-toggle button:hover {
+            background-color: #2980b9;
+        }
+        
+        .filter-mode-toggle button.active {
+            background-color: #2ecc71;
+        }
+        
         /* Mobile optimizations */
         @media (max-width: 768px) {
             body {
@@ -208,6 +234,10 @@
     <h1>Megabonk Synergies</h1>
     
     <h2>Filter by Upgrades</h2>
+    <div class="filter-mode-toggle">
+        <button id="andMode" class="active">AND Mode</button>
+        <button id="orMode">OR Mode</button>
+    </div>
     <div class="upgrade-checkboxes" id="upgradeCheckboxes">
         <!-- Checkboxes will be populated by JavaScript -->
     </div>
@@ -418,6 +448,9 @@
         // Get all unique upgrades
         const allUpgrades = [...new Set(weapons.flatMap(weapon => weapon.upgrades))].sort();
 
+        // Filter mode - true for AND, false for OR
+        let filterModeAnd = true;
+
         // Function to render upgrade checkboxes
         function renderUpgradeCheckboxes() {
             upgradeCheckboxes.innerHTML = '';
@@ -556,12 +589,21 @@
                     return;
                 }
                 
-                // Check if weapon has any of the checked upgrades
-                const hasAnyCheckedUpgrade = weapon.upgrades.some(upgrade => 
-                    checkedUpgrades.includes(upgrade)
-                );
+                // Check filter mode
+                let shouldShow = false;
+                if (filterModeAnd) {
+                    // AND mode: weapon must have ALL checked upgrades
+                    shouldShow = checkedUpgrades.every(upgrade => 
+                        weapon.upgrades.includes(upgrade)
+                    );
+                } else {
+                    // OR mode: weapon must have ANY of the checked upgrades
+                    shouldShow = checkedUpgrades.some(upgrade => 
+                        weapon.upgrades.includes(upgrade)
+                    );
+                }
                 
-                if (hasAnyCheckedUpgrade) {
+                if (shouldShow) {
                     element.classList.remove('hidden');
                 } else {
                     element.classList.add('hidden');
@@ -569,10 +611,26 @@
             });
         }
 
+        // Toggle filter mode
+        function toggleFilterMode() {
+            filterModeAnd = !filterModeAnd;
+            
+            // Update button states
+            document.getElementById('andMode').classList.toggle('active', filterModeAnd);
+            document.getElementById('orMode').classList.toggle('active', !filterModeAnd);
+            
+            // Re-filter weapons
+            filterWeaponsByUpgrades();
+        }
+
         // Initialize the application
         renderUpgradeCheckboxes();
         renderWeapons();
         updateUpgradeCounts();
+
+        // Add event listeners for filter mode toggle buttons
+        document.getElementById('andMode').addEventListener('click', toggleFilterMode);
+        document.getElementById('orMode').addEventListener('click', toggleFilterMode);
     </script>
 </body>
 </html>
