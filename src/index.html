@@ -18,6 +18,7 @@
         h1 {
             text-align: center;
             color: #ffffff;
+            font-size: 1.8rem;
         }
         .weapon-list {
             display: flex;
@@ -50,6 +51,7 @@
             font-weight: bold;
             margin-bottom: 10px;
             color: #ffffff;
+            font-size: 1.1rem;
         }
         .weapon-image {
             width: 100%;
@@ -94,6 +96,7 @@
             width: 100%;
             z-index: 1000;
             border: 1px solid #444;
+            font-size: 0.9rem;
         }
         .selection-summary h2 {
             margin-top: 0;
@@ -128,6 +131,76 @@
         }
         .repo-link a:hover {
             text-decoration: underline;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .weapon-list {
+                gap: 10px;
+            }
+            
+            .weapon {
+                width: calc(50% - 10px);
+                min-width: 140px;
+                padding: 10px;
+            }
+            
+            .weapon-name {
+                font-size: 1rem;
+            }
+            
+            .weapon-image {
+                height: 80px;
+            }
+            
+            .upgrades {
+                font-size: 10px;
+            }
+            
+            .upgrade-checkboxes {
+                gap: 8px;
+            }
+            
+            .upgrade-checkbox label {
+                font-size: 0.9rem;
+            }
+            
+            .selection-summary {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+            
+            .upgrade-count {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .weapon {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            .upgrade-checkboxes {
+                gap: 5px;
+            }
+            
+            .upgrade-checkbox label {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
